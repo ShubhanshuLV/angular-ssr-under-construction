@@ -1,11 +1,11 @@
-FROM node:22-alpine as build
+FROM node:hydrogen-alpine3.20 as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 COPY . ./
 RUN npm run build --omit=dev
 
-FROM node:22-alpine
+FROM node:hydrogen-alpine3.20
 WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package*.json ./
